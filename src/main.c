@@ -1,8 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #define ROWS 3
 #define COLS 3
+
+typedef struct{
+	int row;
+	int col;
+	int score;
+} Move;
 
 void init_array(char arr[ROWS][COLS]) {
 	for (int i = 0; i < ROWS; i++) {
@@ -35,8 +42,20 @@ int main(void) {
 		printf("CPU starts\n");
 	}
 
+	bool game_over = false;
+
 	char board[ROWS][COLS];
 	init_array(board);
 	print_board(board);
-	return 0;
+	
+	while (!game_over) {
+		char boardCopy[ROWS][COLS];
+		for (int i = 0; i < ROWS; i++) {
+			for (int j = 0; j < COLS; j++) {
+				boardCopy[i][j] = board[i][j];
+			}
+		}
+
+		minimax(boardCopy, turn, 5);
+	}
 }
