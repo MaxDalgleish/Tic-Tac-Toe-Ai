@@ -40,7 +40,6 @@ int main(void) {
 	init_array(board);
 	
 	while (!game_over) {
-		print_board(board);
 
 		if (turn == 0) {
 			printf("Enter the row and column: ");
@@ -63,12 +62,11 @@ int main(void) {
 			// Move minimax(char board[3][3], int turn, int depth, Move curr
 			Move temp = {0,0,0};
 			Move best_move = minimax(boardCopy, turn, 5, temp);
-			boardCopy[best_move.row][best_move.col] = 'O';
+			board[best_move.row][best_move.col] = 'O';
 
 		}
 
 		if (check_winner(board)) {
-			print_board(board);
 			if (turn == 0) {
 				printf("Player wins\n");
 			} else {
@@ -91,6 +89,7 @@ int main(void) {
 				game_over = true;
 			}
 		}
+		print_board(board);
 		turn = (turn + 1) % 2;
 	}
 }
