@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include "headers.h"
 
-#define ROWS 3
-#define COLS 3
 
 bool check_winner(char board[ROWS][COLS]) {
 	for (int i = 0; i < ROWS; i++) {

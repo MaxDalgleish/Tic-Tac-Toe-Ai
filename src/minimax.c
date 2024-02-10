@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "main.c"
+#include "headers.h"
 
 Move minimax(char board[3][3], int turn, int depth, Move curr) {
 	if (depth == 0) {
@@ -40,6 +40,7 @@ Move minimax(char board[3][3], int turn, int depth, Move curr) {
 			}
 		}
 	}
+	return best_move;
 }
 
 int eval_func(char board[3][3]) {
