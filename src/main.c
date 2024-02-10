@@ -56,6 +56,7 @@ int main(void) {
 			}
 		}
 
-		minimax(boardCopy, turn, 5);
+		Move temp = {0,0,0};
+		Move best_move = minimax(boardCopy, turn, 5, temp);
 	}
 }

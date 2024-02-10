@@ -2,17 +2,18 @@
 #include <stdio.h>
 #include "main.c"
 
-Move minimax(char board[3][3], int turn, int depth) {
+Move minimax(char board[3][3], int turn, int depth, Move curr) {
 	if (depth == 0) {
-		Move move = {0,0,0};
-		return move;
+		curr.score = eval_func(board);
+		return curr;
 	}
 
-	int best_score;
+	// Turn == 0 is the player, Turn == 1 is the CPU
+	Move best_move = {0, 0, 0};
 	if (turn == 0) {
-		best_score = -1000;
+		best_move.score = -1000;
 	} else {
-		best_score = 1000;
+		best_move.score = 1000;
 	}
 
 	
@@ -21,20 +22,30 @@ Move minimax(char board[3][3], int turn, int depth) {
 			if (board[i][j] == ' ') {
 				if (turn == 0) {
 					board[i][j] = 'X';
-					int score = minimax(board, 1, depth - 1);
+					Move made = {i, j, 0};
+					Move result = minimax(board, 1, depth - 1, made);
 					board[i][j] = ' ';
-					if (score > best_score) {
-						best_score = score;
+					if (result.score > best_move.score) {
+						best_move = result;
 					}
 				} else {
 					board[i][j] = 'O';
-					int score = minimax(board, 0, depth - 1);
+					Move made = {i, j, 0};
+					Move result = minimax(board, 0, depth - 1, made);
 					board[i][j] = ' ';
-					if (score < best_score) {
-						best_score = score;
+					if (result.score < best_move.score) {
+						best_move = result;
 					}
 				}
 			}
 		}
+	}
+}
+
+int eval_func(char board[3][3]) {
+	if (check_winner(board)) {
+		return 1;
+	} else {
+		return 0;
 	}
 }
