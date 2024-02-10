@@ -35,6 +35,7 @@ int main(void) {
 	}
 
 	bool game_over = false;
+	int moves_left = 9;
 
 	char board[ROWS][COLS];
 	init_array(board);
@@ -60,8 +61,8 @@ int main(void) {
 			}
 			// CPU's turn
 			// Move minimax(char board[3][3], int turn, int depth, Move curr
-			Move temp = {0,0,0};
-			Move best_move = minimax(boardCopy, turn, 5, temp);
+			Move temp = {-1,-1,0};
+			Move best_move = minimax(boardCopy, turn, moves_left, temp);
 			board[best_move.row][best_move.col] = 'O';
 
 		}
@@ -91,5 +92,6 @@ int main(void) {
 		}
 		print_board(board);
 		turn = (turn + 1) % 2;
+		moves_left--;
 	}
 }
