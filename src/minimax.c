@@ -3,7 +3,7 @@
 #include "headers.h"
 
 Move minimax(char board[3][3], int turn, int depth, Move curr) {
-	if (depth == 0) {
+	if (depth == 0 || check_winner(board)) {
 		int result = eval_func(board);
 		curr.score = result * (turn == 0 ? 1 : -1);
 		curr.score *= 9 - depth;
@@ -24,7 +24,6 @@ Move minimax(char board[3][3], int turn, int depth, Move curr) {
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
 			if (board[i][j] == ' ') {
-				printf("here\n");
 				// Players turn to make a move
 				if (turn == 0) {
 					board[i][j] = 'X';
@@ -32,7 +31,6 @@ Move minimax(char board[3][3], int turn, int depth, Move curr) {
 					Move result = minimax(board, 1, depth - 1, made);
 					board[i][j] = ' ';
 					if (result.score > best_move.score) {
-						printf("%d \n", result.score);
 						best_move = result;
 					}
 				// CPUs turn to make a move

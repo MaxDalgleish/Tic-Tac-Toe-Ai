@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <time.h>
 #include "headers.h"
 
 void init_array(char arr[ROWS][COLS]) {
@@ -27,6 +28,7 @@ void print_board(char board[ROWS][COLS]) {
 }
 
 int main(void) {
+	srand(time(NULL));
 	int turn = rand() % 2;
 	if (turn == 0) {
 		printf("Player Starts\n");
@@ -39,10 +41,12 @@ int main(void) {
 
 	char board[ROWS][COLS];
 	init_array(board);
+	print_board(board);
 	
 	while (!game_over) {
 
 		if (turn == 0) {
+			printf("PLAYERS TURN\n");
 			printf("Enter the row and column: ");
 			int row, col;
 			scanf("%d %d", &row, &col);
@@ -53,6 +57,7 @@ int main(void) {
 				continue;
 			}
 		} else {
+			printf("CPUS TURN\n");
 			char boardCopy[ROWS][COLS];
 			for (int i = 0; i < ROWS; i++) {
 				for (int j = 0; j < COLS; j++) {
@@ -90,8 +95,9 @@ int main(void) {
 				game_over = true;
 			}
 		}
-		print_board(board);
+
 		turn = (turn + 1) % 2;
 		moves_left--;
+		print_board(board);
 	}
 }
