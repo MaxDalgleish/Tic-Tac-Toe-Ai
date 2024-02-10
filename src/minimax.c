@@ -3,6 +3,8 @@
 #include "headers.h"
 
 Move minimax(char board[3][3], int turn, int depth, Move curr) {
+
+	// CPU seems to be prioritizing saving itself instead of winning outright.
 	if (depth == 0 || check_winner(board)) {
 		int result = eval_func(board);
 		curr.score = result * (turn == 0 ? 1 : -1);
